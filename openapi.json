@@ -1,14 +1,14 @@
 {
-	"openapi": "3.0.2",
+	"openapi": "3.1.0",
 	"info": {
 		"title": "FastAPI",
 		"version": "0.1.0"
 	},
 	"paths": {
-		"/get_income": {
+		"/mosaic_single": {
 			"post": {
 				"summary": "Fetch Income",
-				"operationId": "fetch_income_get_income_post",
+				"operationId": "fetch_income_mosaic_single_post",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -42,76 +42,318 @@
 					}
 				}
 			}
+		},
+		"/mosaic_batch": {
+			"post": {
+				"summary": "Fetch Income",
+				"operationId": "fetch_income_mosaic_batch_post",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"items": {
+									"$ref": "#/components/schemas/Input"
+								},
+								"type": "array",
+								"title": "Data"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Output"
+									},
+									"type": "array",
+									"title": "Response Fetch Income Mosaic Batch Post"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
 		"schemas": {
 			"HTTPValidationError": {
-				"title": "HTTPValidationError",
-				"type": "object",
 				"properties": {
 					"detail": {
-						"title": "Detail",
-						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/ValidationError"
-						}
+						},
+						"type": "array",
+						"title": "Detail"
 					}
-				}
+				},
+				"type": "object",
+				"title": "HTTPValidationError"
 			},
 			"Input": {
-				"title": "Input",
+				"properties": {
+					"CUSTOMER_ID": {
+						"type": "integer",
+						"title": "Customer Id"
+					},
+					"X_COOR": {
+						"type": "number",
+						"title": "X Coor"
+					},
+					"Y_COOR": {
+						"type": "number",
+						"title": "Y Coor"
+					}
+				},
+				"type": "object",
 				"required": [
 					"CUSTOMER_ID",
 					"X_COOR",
 					"Y_COOR"
 				],
-				"type": "object",
-				"properties": {
-					"CUSTOMER_ID": {
-						"title": "Customer Id",
-						"type": "integer"
-					},
-					"X_COOR": {
-						"title": "X Coor",
-						"type": "number"
-					},
-					"Y_COOR": {
-						"title": "Y Coor",
-						"type": "number"
-					}
-				}
+				"title": "Input"
 			},
 			"Output": {
-				"title": "Output",
-				"required": [
-					"GEOMETRY",
-					"PRED_INCOME"
-				],
-				"type": "object",
 				"properties": {
-					"GEOMETRY": {
-						"title": "Geometry",
-						"type": "string"
+					"CUSTOMER_ID": {
+						"type": "integer",
+						"title": "Customer Id"
 					},
-					"PRED_INCOME": {
-						"title": "Pred Income",
-						"type": "number"
+					"CTRYCODE": {
+						"type": "string",
+						"title": "Ctrycode"
+					},
+					"GRIDCODE": {
+						"type": "string",
+						"title": "Gridcode"
+					},
+					"GRIDCODE_5": {
+						"type": "string",
+						"title": "Gridcode 5"
+					},
+					"GRIDCODE_1": {
+						"type": "string",
+						"title": "Gridcode 1"
+					},
+					"BRICKCODE": {
+						"type": "integer",
+						"title": "Brickcode"
+					},
+					"POP": {
+						"type": "number",
+						"title": "Pop"
+					},
+					"HH": {
+						"type": "number",
+						"title": "Hh"
+					},
+					"MALE": {
+						"type": "number",
+						"title": "Male"
+					},
+					"FEMALE": {
+						"type": "number",
+						"title": "Female"
+					},
+					"AGE_T0014": {
+						"type": "number",
+						"title": "Age T0014"
+					},
+					"AGE_M0014": {
+						"type": "number",
+						"title": "Age M0014"
+					},
+					"AGE_F0014": {
+						"type": "number",
+						"title": "Age F0014"
+					},
+					"AGE_T1529": {
+						"type": "number",
+						"title": "Age T1529"
+					},
+					"AGE_M1529": {
+						"type": "number",
+						"title": "Age M1529"
+					},
+					"AGE_F1529": {
+						"type": "number",
+						"title": "Age F1529"
+					},
+					"AGE_T3044": {
+						"type": "number",
+						"title": "Age T3044"
+					},
+					"AGE_M3044": {
+						"type": "number",
+						"title": "Age M3044"
+					},
+					"AGE_F3044": {
+						"type": "number",
+						"title": "Age F3044"
+					},
+					"AGE_T4559": {
+						"type": "number",
+						"title": "Age T4559"
+					},
+					"AGE_M4559": {
+						"type": "number",
+						"title": "Age M4559"
+					},
+					"AGE_F4559": {
+						"type": "number",
+						"title": "Age F4559"
+					},
+					"AGE_T60PL": {
+						"type": "number",
+						"title": "Age T60Pl"
+					},
+					"AGE_M60PL": {
+						"type": "number",
+						"title": "Age M60Pl"
+					},
+					"AGE_F60PL": {
+						"type": "number",
+						"title": "Age F60Pl"
+					},
+					"DI_MIO": {
+						"type": "number",
+						"title": "Di Mio"
+					},
+					"DI_PC": {
+						"type": "number",
+						"title": "Di Pc"
+					},
+					"DI_CI": {
+						"type": "number",
+						"title": "Di Ci"
+					},
+					"WVCE_01": {
+						"type": "number",
+						"title": "Wvce 01"
+					},
+					"WVCE_02": {
+						"type": "number",
+						"title": "Wvce 02"
+					},
+					"WVCE_03": {
+						"type": "number",
+						"title": "Wvce 03"
+					},
+					"WVCE_04": {
+						"type": "number",
+						"title": "Wvce 04"
+					},
+					"WVCE_05": {
+						"type": "number",
+						"title": "Wvce 05"
+					},
+					"WVCE_06": {
+						"type": "number",
+						"title": "Wvce 06"
+					},
+					"WVCE_07": {
+						"type": "number",
+						"title": "Wvce 07"
+					},
+					"WVCE_08": {
+						"type": "number",
+						"title": "Wvce 08"
+					},
+					"WVCE_09": {
+						"type": "number",
+						"title": "Wvce 09"
+					},
+					"WVCE_10": {
+						"type": "number",
+						"title": "Wvce 10"
+					},
+					"WVCE_11": {
+						"type": "number",
+						"title": "Wvce 11"
+					},
+					"WVCE_12": {
+						"type": "number",
+						"title": "Wvce 12"
+					},
+					"WVSEG": {
+						"type": "string",
+						"title": "Wvseg"
+					},
+					"DI_MIO_TL_": {
+						"type": "number",
+						"title": "Di Mio Tl "
+					},
+					"DI_PC_TL_m": {
+						"type": "number",
+						"title": "Di Pc Tl M"
 					}
-				}
+				},
+				"type": "object",
+				"required": [
+					"CUSTOMER_ID",
+					"CTRYCODE",
+					"GRIDCODE",
+					"GRIDCODE_5",
+					"GRIDCODE_1",
+					"BRICKCODE",
+					"POP",
+					"HH",
+					"MALE",
+					"FEMALE",
+					"AGE_T0014",
+					"AGE_M0014",
+					"AGE_F0014",
+					"AGE_T1529",
+					"AGE_M1529",
+					"AGE_F1529",
+					"AGE_T3044",
+					"AGE_M3044",
+					"AGE_F3044",
+					"AGE_T4559",
+					"AGE_M4559",
+					"AGE_F4559",
+					"AGE_T60PL",
+					"AGE_M60PL",
+					"AGE_F60PL",
+					"DI_MIO",
+					"DI_PC",
+					"DI_CI",
+					"WVCE_01",
+					"WVCE_02",
+					"WVCE_03",
+					"WVCE_04",
+					"WVCE_05",
+					"WVCE_06",
+					"WVCE_07",
+					"WVCE_08",
+					"WVCE_09",
+					"WVCE_10",
+					"WVCE_11",
+					"WVCE_12",
+					"WVSEG",
+					"DI_MIO_TL_",
+					"DI_PC_TL_m"
+				],
+				"title": "Output"
 			},
 			"ValidationError": {
-				"title": "ValidationError",
-				"required": [
-					"loc",
-					"msg",
-					"type"
-				],
-				"type": "object",
 				"properties": {
 					"loc": {
-						"title": "Location",
-						"type": "array",
 						"items": {
 							"anyOf": [
 								{
@@ -121,17 +363,26 @@
 									"type": "integer"
 								}
 							]
-						}
+						},
+						"type": "array",
+						"title": "Location"
 					},
 					"msg": {
-						"title": "Message",
-						"type": "string"
+						"type": "string",
+						"title": "Message"
 					},
 					"type": {
-						"title": "Error Type",
-						"type": "string"
+						"type": "string",
+						"title": "Error Type"
 					}
-				}
+				},
+				"type": "object",
+				"required": [
+					"loc",
+					"msg",
+					"type"
+				],
+				"title": "ValidationError"
 			}
 		}
 	}
